@@ -48,6 +48,11 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-mysql</artifactId>
+            <version>3.13.3</version>
+        </dependency>
     </dependencies>
 
     <build>
