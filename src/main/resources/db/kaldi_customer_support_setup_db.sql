@@ -2,9 +2,9 @@ CREATE DATABASE IF NOT EXISTS kaldi_customer_support;
 
 use kaldi_customer_support;
 
-#CREATE USER IF NOT EXISTS 'kaldi_admin'@'localhost' IDENTIFIED BY '+C7HZ+9z*yv%EfFM161';
-#GRANT ALL PRIVILEGES ON kaldi_customer_support.* TO 'kaldi_admin'@'localhost';
-#FLUSH PRIVILEGES;
+CREATE USER IF NOT EXISTS 'kaldi_admin'@'localhost' IDENTIFIED BY '+C7HZ+9z*yv%EfFM161';
+GRANT ALL PRIVILEGES ON kaldi_customer_support.* TO 'kaldi_admin'@'localhost';
+FLUSH PRIVILEGES;
 
 CREATE TABLE IF NOT EXISTS Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
