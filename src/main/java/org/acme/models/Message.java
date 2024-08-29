@@ -5,16 +5,26 @@ import java.sql.Timestamp;
 public class Message {
     private int id;
     private int chatroomId;
+    private SenderType senderType;
     private Timestamp sentTimestamp;
     private String message;
 
     public Message() {
     }
-    public Message(int id, int chatroomId, Timestamp sentTimestamp, String message) {
+
+    public Message(int chatroomId, SenderType senderType, Timestamp sentTimestamp, String message) {
+        this.chatroomId = chatroomId;
+        this.senderType = senderType;
+        this.sentTimestamp = sentTimestamp;
+        this.message = message;
+    }
+
+    public Message(int id, int chatroomId, Timestamp sentTimestamp, String message , SenderType userType) {
         this.id = id;
         this.chatroomId = chatroomId;
         this.sentTimestamp = sentTimestamp;
         this.message = message;
+        this.senderType = userType;
     }
 
     public int getId() {
@@ -31,6 +41,14 @@ public class Message {
 
     public void setChatroomId(int chatroomId) {
         this.chatroomId = chatroomId;
+    }
+
+    public SenderType getSenderType() {
+        return senderType;
+    }
+
+    public void setSenderType(SenderType senderType) {
+        this.senderType = senderType;
     }
 
     public Timestamp getSentTimestamp() {
