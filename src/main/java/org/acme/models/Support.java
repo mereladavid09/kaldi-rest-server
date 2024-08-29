@@ -1,9 +1,10 @@
 package org.acme.models;
-
 public class Support {
     private int id;
     private String email;
     private String username;
+
+    private String role;
 
     public Support() {
     }
@@ -12,6 +13,12 @@ public class Support {
         this.id = id;
         this.email = email;
         this.username = username;
+    }
+
+    public Support(String email, String username, String role) {
+        this.email = email;
+        this.username = username;
+        this.role = role;
     }
 
     public int getId() {
@@ -36,5 +43,13 @@ public class Support {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
