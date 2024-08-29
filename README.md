@@ -51,6 +51,17 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework and Mysql Dat
 - **Mac OS:** By specifying `mysql@8`, Homebrew will install the latest version of MySQL 8.
 - **Windows:** Ensure that during installation, you select the MySQL 8.* version.
 
+## Cloning the Repository
+
+**To get started with this project, first clone the repository from GitHub:**
+   1. **Clone the Repository:**
+      
+      ```sh
+      git clone https://github.com/mereladavid09/kaldi-rest-server.git
+      
+   3. **Navigate into the Project Directory**
+
+
 ## Running kaldi_customer_support_setup_db.sql :
 
 ### Mac OS:
