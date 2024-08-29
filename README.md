@@ -1,62 +1,152 @@
 # kaldi-rest-server
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project uses Quarkus, the Supersonic Subatomic Java Framework and Mysql Database.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Installing Quarkus
+   
+### Mac OS:
+1. **Install Homebrew** (if not already installed):
+   
+   ```sh
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   
+3. **Install Quarkus CLI using Homebrew** (if not already installed):
+   
+   ```sh
+   brew install quarkusio/tap/quarkus
 
-## Running the application in dev mode
+### Windows:
+1. **Install Quarkus using PowerShell. Open PowerShell as Administrator and run** (if not already installed):
+   
+   ```sh
+   iex "& { $(iwr https://ps.jbang.dev) } trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/" && iex "& { $(iwr https://ps.jbang.dev) } app install --fresh --force quarkus@quarkusio"
 
-You can run your application in dev mode that enables live coding using:
+## Installing Mysql
 
-```shell script
-./mvnw compile quarkus:dev
-```
+### Mac OS:
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+1. **Install MySQL 8.* using Homebrew**:
+   
+   ```sh
+     brew install mysql@8
+   
+3. **Start MySQL**:
+   
+   ```sh
+     brew services start mysql@8
+   
+4. **Secure the MySQL installation (optional but recommended)**:
+ 
+     ```sh
+      mysql_secure_installation
+     
+### Windows:
 
-## Packaging and running the application
+1. **Download MySQL Installer from MySQL website : https://www.mysql.com/**
+2. **Run the Installer and follow the prompts to install MySQL Server version 8.*.**
+3. **Start MySQL Server from the MySQL Workbench or command line.**
 
-The application can be packaged using:
+### Additional Notes:
 
-```shell script
-./mvnw package
-```
+- **Mac OS:** By specifying `mysql@8`, Homebrew will install the latest version of MySQL 8.
+- **Windows:** Ensure that during installation, you select the MySQL 8.* version.
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+## Running kaldi_customer_support_setup_db.sql :
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+### Mac OS:
 
-If you want to build an _über-jar_, execute the following command:
+1. **Open Terminal**
+   
+2. **Log in to MySQL**:
+   **Run the following command to log in as the root user**
+   ```sh
+     mysql -u root -p
+   
+3. **Run the SQL script to create the database:**
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
+    1. **Navigate to the directory where the `kaldi_customer_support_setup_db.sql` file is located**:
+       
+       ```sh
+       cd /path/to/your/sql/file
+       
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+    2. **Run the SQL script**:
+       
+       ```sh
+       source kaldi_customer_support_setup_db.sql;
+       
+    **Replace /path/to/your/sql/file with the actual path to the SQL file.**
+### Windows:
 
-## Creating a native executable
+1. **Open Command Prompt:**
+    **Press Win + R, type cmd, and press Enter.**
+2. **Log in to MySQL:**
+     **Run the following command to log in as the root user**:
+     ```sh
+     mysql -u root -p
 
-You can create a native executable using:
+  **Enter your MySQL root password when prompted.**
+     
+3. **Run the SQL script to create the database**:
+   
+   1. **Navigate to the directory where the `kaldi_customer_support_setup_db.sql` file is located**:
+       
+       ```sh
+       cd C:\path\to\your\sql\file
+       
 
-```shell script
-./mvnw package -Dnative
-```
+  2. **Run the SQL script**:
+       
+       ```sh
+       source kaldi_customer_support_setup_db.sql;
+       
+  **Replace C:\path\to\your\sql\file with the actual path to the SQL file.**
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+## Configuring MySQL in the Application:
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
+**You can configure MySQL either in the application.properties file or by setting environmental variables in your IDE.**
 
-You can then execute your native executable with: `./target/kaldi-rest-server-1.0.0-SNAPSHOT-runner`
+### Option 1: Configuring application.properties:
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+  1. **Open the src/main/resources/application.properties file.**
+  2. **Update the following properties with the user created in the       kaldi_customer_support_setup_db.sql:**
+  3. **Replace {DB_USERNAME} with db user's username**
+  4. **Replace {DB_PASSWORD} with db user's password**
+     
+     ```properties
+       quarkus.datasource.db-kind=mysql
+       quarkus.datasource.jdbc.url=jdbc:mysql://localhost:3306/kaldi_customer_support
+       quarkus.datasource.jdbc.driver=com.mysql.cj.jdbc.Driver
+       quarkus.datasource.username=${DB_USERNAME}
+       quarkus.datasource.password=${DB_PASSWORD}
 
-## Provided Code
+### Option 2: Setting Environment Variables in IntelliJ IDEA:
+  1. **Navigate TO RUN->EDIT CONFIGURATIONS**
+  2. **In the left menu select configuration**
+  3. **Under Java Options click Modify.**
+  4. **Select Environment Variables**
+  5. **Add DB_USERNAME and DB_PASSWORD environment variables with the database user's authentication data.**
 
-### REST
+## Running Quarkus Application in DEV MODE:
 
-Easily start your REST Web Services
+### Option 1: Run in Console/Terminal:
+  1. **Open the console.**
+  2. **Navigate to the project directory**
+  3. **Run the following command**:
+     
+      ```sh
+        quarkus:dev
+      
+### Option 2: Setting Up IntelliJ IDEA to Run the Application:
+  1. **Navigate to RUN->EDIT CONFIGURATIONS**
+  2. **In the top left corner click +(Add New Configuration)**
+  3. **Select maven**
+  4. **Under Run in the command line use the following command**
+     
+     ```sh
+        quarkus:dev
+     
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+## Troubleshooting
+### If you encounter any issues, please check the following:
+  1.**Error Messages: Review any error messages for guidance.**
