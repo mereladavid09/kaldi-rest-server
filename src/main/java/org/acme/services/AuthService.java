@@ -41,7 +41,6 @@ public class AuthService {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatementUser = connection.prepareStatement(getUserPassQuery);
             preparedStatementUser.setString(1,username);
-            preparedStatementUser.executeQuery();
             ResultSet resultSetUser = preparedStatementUser.executeQuery();
             if(resultSetUser.next()){
                 return BCrypt.checkpw(password, resultSetUser.getString("user_password"));
