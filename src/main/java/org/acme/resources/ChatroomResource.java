@@ -12,10 +12,7 @@ import org.acme.models.Chatroom;
 import org.acme.models.Support;
 import org.acme.models.User;
 import org.acme.respons.JoinChatroomResponse;
-import org.acme.services.ChatroomService;
-import org.acme.services.MessageService;
-import org.acme.services.SupportService;
-import org.acme.services.UserService;
+import org.acme.services.*;
 
 import java.util.List;
 
@@ -32,6 +29,9 @@ public class ChatroomResource {
 
     @Inject
     SupportService supportService;
+
+    @Inject
+    RoomService roomService;
 
     @POST
     @Path("/CreateChatroom")
@@ -59,6 +59,7 @@ public class ChatroomResource {
             JoinChatroomResponse joinChatroomResponse= new JoinChatroomResponse();
             joinChatroomResponse.setUser(userService.getUserById(chatroomDto.getUserId()));
             joinChatroomResponse.setMessage(messageService.getAllMessagesInChatroom(chatroomDto.getId()));
+            joinChatroomResponse.setRoomName(roomService.getRoomNameById(chatroomDto.getRoomId()));
             return Response.ok(joinChatroomResponse).build();
         }catch (Exception e){
             e.printStackTrace();
